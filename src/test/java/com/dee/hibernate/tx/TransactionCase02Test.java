@@ -16,12 +16,12 @@ public class TransactionCase02Test extends TestCase{
     public void testOpenMultipleConnection_ConnectionPool_C3P0() {
         int count = 100;
         final String  config = "/config/mysql-hibernate-standalone.cfg.xml";
+        SessionUtil.getStatistic(config).clear();
         while((count--) > 0) {
             Runnable runn = new Runnable() {
                 @Override
                 public void run() {
                     Session session = SessionUtil.getSession(config);
-                    System.out.println(SessionUtil.getStatistic(config).getConnectCount());
                     session.beginTransaction();
                     StudentModel student1 = new StudentModel();
                     session.persist(student1);

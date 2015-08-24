@@ -22,7 +22,6 @@ public class TransactionCase01Test extends TestCase{
                 @Override
                 public void run() {
                     Session session = SessionUtil.getSession(config);
-                    System.out.println(SessionUtil.getStatistic(config).getConnectCount());
                     session.beginTransaction();
                     StudentModel student1 = new StudentModel();
                     session.persist(student1);
