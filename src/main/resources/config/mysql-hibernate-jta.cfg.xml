@@ -22,7 +22,7 @@
         </property>
         
         
-        <property name="hibernate.connection.datasource">the_same_datasource_configure_in_app_server</property>
+        <property name="hibernate.connection.datasource">java:jboss/datasources/ExampleDS</property>
         
         <!-- For JBOSS -->
         <property name="hibernate.transaction.manager_lookup_class">

@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/dee-sample01</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/dee-db</property>
 		<property name="connection.username">dee</property>
 		<property name="connection.password">dee123</property>
 		
