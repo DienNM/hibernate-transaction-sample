@@ -5,28 +5,29 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/dee-sample01</property>
-		<property name="connection.username">dee</property>
-		<property name="connection.password">dee123</property>
-		
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">create</property>
-		<property name="connection.pool_size">3</property>
         
         <!-- Connection Pool: c3p0 -->
         <property name="hibernate.c3p0.timeout">300</property>
-        <property name="hibernate.c3p0.min_size">10</property>
-        <property name="hibernate.c3p0.max_size">20</property>
-        <property name="hibernate.c3p0.acquire_increment">3</property>
+        <property name="hibernate.c3p0.min_size">3</property>
+        <property name="hibernate.c3p0.max_size">5</property>
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.idle_test_period">3000</property>
         <property name="hibernate.generate_statistics">true</property>
         
         <property name="hibernate.transaction.factory_class">
-            org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
-        </property>  
+            org.hibernate.engine.transaction.internal.jdbc.JTATransactionFactory
+        </property>
+        
+        
+        <property name="hibernate.connection.datasource">the_same_datasource_configure_in_app_server</property>
+        
+        <!-- For JBOSS -->
+        <property name="hibernate.transaction.manager_lookup_class">
+            org.hibernate.transaction.JBossTransactionManagerLookup
+        </property>
         
 		<!-- <mapping resource="mapping/hibernate.hbm.xml" /> -->
         <mapping class="com.dee.hibernate.tx.model.StudentModel"/>

@@ -16,15 +16,26 @@ public final class SessionUtil {
     private final SessionFactory sessionFactory;
     private static SessionUtil instance;
     
-    private SessionUtil() {
+    private SessionUtil(String configPath) {
         Configuration configuration = new Configuration();
-        configuration.configure("/config/mysql-hibernate.cfg.xml");
+        configuration.configure(configPath);
         
         StandardServiceRegistryBuilder srBuilder = new StandardServiceRegistryBuilder();
         srBuilder.applySettings(configuration.getProperties());
         StandardServiceRegistry ssRegister = srBuilder.build();
         
         sessionFactory = configuration.buildSessionFactory(ssRegister);
+    }
+    
+    private SessionUtil() {
+        this("/config/mysql-hibernate.cfg.xml");
+    }
+    
+    public synchronized static SessionUtil getInstance(String configPath) {
+        if(instance == null) {
+            instance = new SessionUtil(configPath);
+        }
+        return instance;
     }
     
     public synchronized static SessionUtil getInstance() {
@@ -34,8 +45,16 @@ public final class SessionUtil {
         return instance;
     }
     
+    public static Session getSession(String configPath) {
+        return getInstance(configPath).sessionFactory.openSession();
+    }
+    
     public static Session getSession() {
         return getInstance().sessionFactory.openSession();
+    }
+    
+    public static Statistics getStatistic(String configPath) {
+        return getInstance(configPath).sessionFactory.getStatistics();
     }
     
     public static Statistics getStatistic() {
@@ -44,6 +63,10 @@ public final class SessionUtil {
     
     public static SessionFactory getSessionFactory() {
         return getInstance().sessionFactory;
+    }
+    
+    public static SessionFactory getSessionFactory(String configPath) {
+        return getInstance(configPath).sessionFactory;
     }
     
 }
