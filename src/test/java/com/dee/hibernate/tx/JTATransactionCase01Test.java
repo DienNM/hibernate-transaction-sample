@@ -19,6 +19,7 @@ import com.dee.hibernate.tx.model.StudentModel;
  **/
 
 public class JTATransactionCase01Test extends TestCase{
+    
     public void testOpenMultipleConnection() throws Exception {
         final String config = "/config/mysql-hibernate-jta.cfg.xml";
         UserTransaction tx = null;
